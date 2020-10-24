@@ -1,0 +1,42 @@
+body, html {
+    height: 100%;
+}
+
+.container {
+    border: 1px solid red;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator {
+    border: 1px solid green;
+    height: 600px;
+    width: 500px;
+}
+
+.display-container {
+    border: 1px solid yellow;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.display {
+    border: 1px solid pink;
+}
+
+.numpad-container {
+    border: 1px solid yellow;
+    height: 80%;
+    display: flex;
+    flex-flow: wrap;
+}
+
+.numpad {
+    height: 100px;
+    width: 25%;
+
+}
