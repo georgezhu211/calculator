@@ -1,9 +1,9 @@
 body, html {
     height: 100%;
+    background-color: #a5ecd7;
 }
 
 .container {
-    border: 1px solid red;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -11,32 +11,69 @@ body, html {
 }
 
 .calculator {
-    border: 1px solid green;
     height: 600px;
     width: 500px;
+    background-color: #51adcf;
+    border-radius: 10px;
 }
 
 .display-container {
-    border: 1px solid yellow;
-    height: 20%;
+    height: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.display-exteriror {
+    height: 50%;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+}
+
 .display {
-    border: 1px solid pink;
+    width: 80%;
+    text-align: right;
+    font-size: 32px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .numpad-container {
-    border: 1px solid yellow;
-    height: 80%;
+    height:77%;
     display: flex;
-    flex-flow: wrap;
+    justify-content: center;
 }
 
 .numpad {
-    height: 100px;
-    width: 25%;
+    height: 80%;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
 
+.numbers {
+    width: 74%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.operators {
+    width: 24%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.numbers > .btn {
+    height: 24%;
+    width: 32%;
+}
+
+.operators > .btn {
+    height: 19%;
+    width: 90%;
 }
