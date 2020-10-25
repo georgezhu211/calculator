@@ -26,38 +26,64 @@ const opBtns = document.querySelectorAll('.op-btn');
 const calcBtn = document.querySelector('.calc-btn');
 const clearBtn = document.querySelector('.clear-btn');
 
-let a = '';
-let b = '';
-let operator = '';
+let a;
+let b;
+let operator;
+let clearScreen = false;
 
 numBtns.forEach((button) => {
     button.addEventListener('click', () => {
+        if(display.textContent == '0') {
+            return display.textContent = button.id;
+        }
+        if(clearScreen) {
+            display.textContent = '';
+            clearScreen = false;
+        }
+        // add number to display
         display.textContent += button.id;
     });
 });
 
 opBtns.forEach((button) => {
     button.addEventListener('click', () => {
+        // sets operator
+        if(typeof a == 'number' && operator != '') {
+            b = Number(display.textContent);
+            result = operate(operator, a, b);
+            display.textContent = roundNumber(result);
+        }
         a = Number(display.textContent);
-        display.textContent += button.id;
         operator = button.id;
+        clearScreen = true;
     });
 });
 
 calcBtn.addEventListener('click', () => {
-    string = display.textContent;
-    opArray = ['+','-','x','÷'];
-    opArray.forEach((operator) => {
-        let index = string.indexOf(operator);
-        if (index > 0) b = Number(string.slice(index + 1));
-    });
-    display.textContent = operate(operator, a, b);
+    // calculate
+    if (b == '' && operator == '') {
+        return
+    }
+    b = Number(display.textContent);
+    let result = operate(operator, a, b);
+    display.textContent = roundNumber(result);
+    a = Number(display.textContent);
+    b = '';
+    operator = '';
+    clearScreen = true;
 });
 
 clearBtn.addEventListener('click', () => {
+    // clears display
     display.textContent = '0';
     a = '';
     b = '';
     operator = '';
 });
 
+function roundNumber(num) {
+    if(num % 1 != 0) {
+        return num.toFixed(2);
+    }
+    return num;
+}
