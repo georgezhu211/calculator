@@ -12,9 +12,10 @@ body, html {
 
 .calculator {
     height: 600px;
-    width: 500px;
+    width: 450px;
     background-color: #51adcf;
     border-radius: 10px;
+    box-shadow: 12px 12px 5px 10px #0278ae;
 }
 
 .display-container {
@@ -30,7 +31,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: #e8ffc1;
     border-radius: 10px;
 }
 
@@ -48,32 +49,32 @@ body, html {
 }
 
 .numpad {
-    height: 80%;
-    width: 80%;
+    height: 360px;
+    width: 360px;
     display: flex;
-    justify-content: space-between;
+    flex-flow: wrap;
 }
 
-.numbers {
-    width: 74%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+.btn {
+    flex-basis: 23%;
+    border: none;
+    box-sizing: border-box;
+    margin: 3px;
+    border-radius: 20px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 32px;
+    color: #0278ae;
+    background-color: #a5ecd7;
 }
 
-.operators {
-    width: 24%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+.btn:hover {
+    transform: scale(1.05);
 }
 
-.numbers > .btn {
-    height: 24%;
-    width: 32%;
+.clear-btn, .back-btn {
+    flex-basis: 48%;
 }
 
-.operators > .btn {
-    height: 19%;
-    width: 90%;
+.op-btn {
+    background-color: #41dbf0;
 }

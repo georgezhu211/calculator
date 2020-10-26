@@ -26,6 +26,7 @@ const opBtns = document.querySelectorAll('.op-btn');
 const calcBtn = document.querySelector('.calc-btn');
 const clearBtn = document.querySelector('.clear-btn');
 const decimalBtn = document.querySelector('.decimal-btn');
+const backBtn = document.querySelector('.back-btn');
 
 let a;
 let b;
@@ -86,6 +87,12 @@ decimalBtn.addEventListener('click', () => {
     let num = display.textContent;
     if(num == Math.floor(num) && num.charAt(num.length - 1) != '.') {
         display.textContent += '.';
+    }
+});
+
+backBtn.addEventListener('click', () => {
+    if(display.textContent != '') {
+        display.textContent = display.textContent.slice(0, -1);
     }
 });
 
