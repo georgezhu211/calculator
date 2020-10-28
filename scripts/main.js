@@ -11,10 +11,10 @@ function operate(operator, op1, op2) {
         case '-':
             return subtract(op1, op2);
             break;
-        case 'x':
+        case '*':
             return multiply(op1, op2);
             break;
-        case '÷':
+        case '/':
             return divide(op1, op2);
             break;
     }
@@ -33,68 +33,77 @@ let b;
 let operator;
 let clearScreen = false;
 
+// EventListeners
+
 numBtns.forEach((button) => {
     button.addEventListener('click', () => {
-        if(display.textContent == '0') {
-            return display.textContent = button.id;
-        }
-        if(clearScreen) {
-            display.textContent = '';
-            clearScreen = false;
-        }
-        // add number to display
-        display.textContent += button.id;
+        updateDisplay(button.id);
     });
 });
 
 opBtns.forEach((button) => {
     button.addEventListener('click', () => {
-        // sets operator
-        if(typeof a == 'number' && operator != '') {
-            b = Number(display.textContent);
-            result = operate(operator, a, b);
-            display.textContent = roundNumber(result);
-        }
-        a = Number(display.textContent);
-        operator = button.id;
-        clearScreen = true;
+        changeOperator(button.id);
     });
 });
 
 calcBtn.addEventListener('click', () => {
-    // calculate
-    if (b == '' && operator == '') {
-        return
-    }
-    b = Number(display.textContent);
-    let result = operate(operator, a, b);
-    display.textContent = roundNumber(result);
-    a = Number(display.textContent);
-    b = '';
-    operator = '';
-    clearScreen = true;
+    calculate();
 });
 
 clearBtn.addEventListener('click', () => {
-    // clears display
+    clearDisplay();
+});
+
+backBtn.addEventListener('click', () => {
+    deleteNumber();
+});
+
+decimalBtn.addEventListener('click', () => {
+    addDecimal();
+});
+// Functions
+
+function updateDisplay(value) {
+    if(display.textContent == '0') {
+        return display.textContent = value;
+    }
+    if(clearScreen) {
+        display.textContent = '';
+        clearScreen = false;
+    }
+    display.textContent += value;
+}
+
+function changeOperator(value) {
+    if(operator != '') {
+        calculate();
+    }
+    a = Number(display.textContent);
+    operator = value;
+    clearScreen = true;
+}
+
+function calculate() {
+    b = Number(display.textContent);
+    display.textContent = roundNumber(operate(operator, a, b));
+    clearScreen = true;
+    operator = '';
+}
+
+function clearDisplay() {
     display.textContent = '0';
     a = '';
     b = '';
     operator = '';
-});
+    clearScreen = false;
+}
 
-decimalBtn.addEventListener('click', () => {
-    let num = display.textContent;
-    if(num == Math.floor(num) && num.charAt(num.length - 1) != '.') {
-        display.textContent += '.';
-    }
-});
-
-backBtn.addEventListener('click', () => {
+function deleteNumber() {
     if(display.textContent != '') {
         display.textContent = display.textContent.slice(0, -1);
     }
-});
+}
 
 function roundNumber(num) {
     if(num % 1 != 0) {
@@ -102,3 +111,28 @@ function roundNumber(num) {
     }
     return num;
 }
+
+function addDecimal() {
+    let num = display.textContent;
+    if(num == Math.floor(num) && num.charAt(num.length - 1) != '.') {
+        display.textContent += '.';
+    }
+}
+
+// Keyboard Support
+
+window.addEventListener('keydown', (e) => {
+    numbers = Array.from(numBtns).map((num) => num.id);
+    operators = Array.from(opBtns).map((op) => op.id);
+    if(numbers.includes(e.key)) {
+        updateDisplay(e.key);
+    } else if(operators.includes(e.key)) {
+        changeOperator(e.key);
+    } else if(e.key == '.') {
+        addDecimal();
+    } else if(e.key == 'Backspace') {
+        deleteNumber();
+    } else if(e.key == 'Enter') {
+        calculate();
+    }
+ });
