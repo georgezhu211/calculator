@@ -65,7 +65,7 @@ decimalBtn.addEventListener('click', () => {
 // Functions
 
 function updateDisplay(value) {
-    if(display.textContent == '0') {
+    if(display.textContent === '0') {
         return display.textContent = value;
     }
     if(clearScreen) {
@@ -76,19 +76,26 @@ function updateDisplay(value) {
 }
 
 function changeOperator(value) {
-    if(operator != '') {
+    if(operator != '' && clearScreen == false) {
         calculate();
     }
     a = Number(display.textContent);
     operator = value;
     clearScreen = true;
+
 }
 
 function calculate() {
-    b = Number(display.textContent);
-    display.textContent = roundNumber(operate(operator, a, b));
-    clearScreen = true;
-    operator = '';
+    if(typeof a == 'number' && operator !== '') {
+        b = Number(display.textContent);
+        const test = roundNumber(operate(operator, a, b));
+        console.log('test: ', test);
+        display.textContent = test;
+        // clearScreen = true;
+        operator = '';
+    }
+    console.log(a);
+    console.log(b)
 }
 
 function clearDisplay() {
@@ -122,6 +129,8 @@ function addDecimal() {
 // Keyboard Support
 
 window.addEventListener('keydown', (e) => {
+    e.preventDefault();
+    console.log(e.key);
     numbers = Array.from(numBtns).map((num) => num.id);
     operators = Array.from(opBtns).map((op) => op.id);
     if(numbers.includes(e.key)) {
